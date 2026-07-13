@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HDI Prediction Result</title>
+
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='result.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <h1>🌍 HDI Prediction Result</h1>
+
+        <p>Machine Learning Based Human Development Index Prediction</p>
+
+    </div>
+
+
+    <div class="result-wrapper">
+
+        <!-- LEFT CARD -->
+
+<!-- Result Card -->
+
+<div class="result-card {{ color }}-result">
+
+    <div class="result-icon">
+        {{ emoji }}
+    </div>
+
+    <h2 class="result-title">
+        {{ tier }} Human Development
+    </h2>
+
+    <p class="result-subtitle">
+        Human Development Index Prediction
+    </p>
+
+    <div class="score-box">
+
+        <span class="score-label">
+            HDI Score
+        </span>
+
+        <h1 class="score">
+            {{ hdi_score }}
+        </h1>
+
+    </div>
+
+ <div class="progress">
+    <div class="progress-fill"
+         style="width: {{ (hdi_score * 100)|round|int }}%;">
+    </div>
+</div>
+
+<div class="progress-scale">
+    <span>0.0</span>
+    <span>0.55</span>
+    <span>0.70</span>
+    <span>0.80</span>
+    <span>1.0</span>
+</div>
+    <p class="result-description">
+        {{ description }}
+    </p>
+
+</div>
+
+
+        <!-- RIGHT CARD -->
+
+        <div class="summary-card">
+
+            <h2>Input Summary</h2>
+
+            <div class="summary-row">
+
+                <span>🏥 Life Expectancy</span>
+
+                <strong>{{ life_expectancy }} Years</strong>
+
+            </div>
+
+            <div class="summary-row">
+
+                <span>📚 Mean Schooling</span>
+
+                <strong>{{ mean_years_schooling }} Years</strong>
+
+            </div>
+
+            <div class="summary-row">
+
+                <span>🎓 Expected Schooling</span>
+
+                <strong>{{ expected_years_schooling }} Years</strong>
+
+            </div>
+
+            <div class="summary-row">
+
+                <span>💰 GNI Per Capita</span>
+
+                <strong>${{ "{:,.0f}".format(gni_per_capita) }}</strong>
+
+            </div>
+
+        </div>
+
+    </div>
+        <!-- HDI Categories -->
+
+    <div class="category-section">
+
+        <h2>HDI Categories</h2>
+
+        <div class="category-grid">
+
+            <div class="category-card {% if tier == 'Very High' %}active-card{% endif %}">
+                <div class="dot very-high-dot"></div>
+                <h3>Very High</h3>
+                <p>HDI ≥ 0.800</p>
+            </div>
+
+            <div class="category-card {% if tier == 'High' %}active-card{% endif %}">
+                <div class="dot high-dot"></div>
+                <h3>High</h3>
+                <p>0.700 – 0.799</p>
+            </div>
+
+            <div class="category-card {% if tier == 'Medium' %}active-card{% endif %}">
+                <div class="dot medium-dot"></div>
+                <h3>Medium</h3>
+                <p>0.550 – 0.699</p>
+            </div>
+
+            <div class="category-card {% if tier == 'Low' %}active-card{% endif %}">
+                <div class="dot low-dot"></div>
+                <h3>Low</h3>
+                <p>Below 0.550</p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Button -->
+
+    <div class="button-section">
+
+        <a href="/" class="back-btn">
+
+            🔄 Predict Another Country
+
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

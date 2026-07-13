@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human Development Index Predictor</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container">
+
+    <header class="header">
+
+        <h1>🌍 Human Development Index Predictor</h1>
+
+        <p>
+            Predict the Human Development Index using
+            Machine Learning based on development indicators.
+        </p>
+
+    </header>
+
+    <section class="status-section">
+
+        <div class="status-card very-high">
+            <h3>Very High</h3>
+            <span>HDI ≥ 0.800</span>
+        </div>
+
+        <div class="status-card high">
+            <h3>High</h3>
+            <span>0.700 – 0.799</span>
+        </div>
+
+        <div class="status-card medium">
+            <h3>Medium</h3>
+            <span>0.550 – 0.699</span>
+        </div>
+
+        <div class="status-card low">
+            <h3>Low</h3>
+            <span>&lt; 0.550</span>
+        </div>
+
+    </section>
+
+    {% if error %}
+    <div class="error-box">
+        {{ error }}
+    </div>
+    {% endif %}
+
+    <section class="content">
+
+        <div class="left-panel">
+
+            <div class="form-card">
+
+                <h2>Enter Development Indicators</h2>
+
+                <p class="subtitle">
+                    Fill all the values to estimate the country's HDI.
+                </p>
+
+                <form action="/predict" method="POST">
+
+                    <div class="input-grid">
+
+                        <div class="input-group">
+
+                            <label>🏥 Life Expectancy</label>
+
+                            <input
+                                type="number"
+                                name="life_expectancy"
+                                step="0.1"
+                                min="20"
+                                max="90"
+                                placeholder="72.5"
+                                required>
+
+                        </div>
+
+                        <div class="input-group">
+
+                            <label>📚 Mean Years of Schooling</label>
+
+                            <input
+                                type="number"
+                                name="mean_years_schooling"
+                                step="0.1"
+                                placeholder="8.4"
+                                required>
+
+                        </div>
+
+                        <div class="input-group">
+
+                            <label>🎓 Expected Years of Schooling</label>
+
+                            <input
+                                type="number"
+                                name="expected_years_schooling"
+                                step="0.1"
+                                placeholder="13.2"
+                                required>
+
+                        </div>
+
+                        <div class="input-group">
+
+                            <label>💰 GNI Per Capita (PPP $)</label>
+
+                            <input
+                                type="number"
+                                name="gni_per_capita"
+                                placeholder="15000"
+                                required>
+
+                        </div>
+
+                    </div>
+
+                    <button type="submit" class="predict-btn">
+                        Predict Human Development Index
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <div class="right-panel">
+
+            <div class="about-card">
+
+                <h2>About HDI</h2>
+
+                <div class="about-item">
+
+                    <div class="icon">🏥</div>
+
+                    <div>
+
+                        <h4>Health</h4>
+
+                        <p>Measured using Life Expectancy at Birth.</p>
+
+                    </div>
+
+                </div>
+
+                <div class="about-item">
+
+                    <div class="icon">🎓</div>
+
+                    <div>
+
+                        <h4>Education</h4>
+
+                        <p>Based on Mean and Expected Years of Schooling.</p>
+
+                    </div>
+
+                </div>
+
+                <div class="about-item">
+
+                    <div class="icon">💰</div>
+
+                    <div>
+
+                        <h4>Income</h4>
+
+                        <p>Measured using Gross National Income per Capita.</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+        <!-- Sample Inputs -->
+    <section class="sample-section">
+        <h2>Quick Sample Inputs</h2>
+        <p>Select any sample to automatically fill the form.</p>
+        <div class="sample-grid">
+            <div class="sample-card"
+                 onclick="fillForm(82.4,13.0,18.2,64660)">
+                <div class="sample-icon">🌍</div>
+
+                <h3>Developed</h3>
+                <span>Very High HDI</span>
+
+            </div>
+
+            <div class="sample-card"
+                 onclick="fillForm(76.2,10.5,14.8,18000)">
+                <div class="sample-icon">🏙️</div>
+
+                <h3>Developing</h3>
+                <span>High HDI</span>
+
+            </div>
+
+            <div class="sample-card"
+                 onclick="fillForm(68.5,6.8,11.2,6500)">
+
+                <div class="sample-icon">📈</div>
+
+                <h3>Emerging</h3>
+                <span>Medium HDI</span>
+
+            </div>
+
+            <div class="sample-card"
+                 onclick="fillForm(54.3,3.2,7.5,1800)">
+
+                <div class="sample-icon">🌱</div>
+
+                <h3>Low Income</h3>
+                <span>Low HDI</span>
+
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<script>
+
+function fillForm(le,mys,eys,gni){
+
+document.querySelector('[name="life_expectancy"]').value=le;
+
+document.querySelector('[name="mean_years_schooling"]').value=mys;
+
+document.querySelector('[name="expected_years_schooling"]').value=eys;
+
+document.querySelector('[name="gni_per_capita"]').value=gni;
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+</script>
+
+</body>
+</html>
